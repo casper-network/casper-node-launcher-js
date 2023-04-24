@@ -5,8 +5,8 @@ import { ux } from "@oclif/core";
 export default async function download(
   url: string,
   filename: string,
-  callback: any
-) {
+  callback: (...args: any[]) => void
+): Promise<void> {
   const progressBar = ux.progress();
   const file = fs.createWriteStream(filename);
   let receivedBytes = 0;
@@ -14,10 +14,13 @@ export default async function download(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw Error("Unable to access");
+    throw new Error("Unable to access");
   }
 
-  const totalBytes = parseInt(response.headers.get("content-length")!, 10);
+  const totalBytes = Number.parseInt(
+    response.headers.get("content-length")!,
+    10
+  );
   progressBar.start(totalBytes, 0);
   response.body
     ?.on("data", (chunk) => {

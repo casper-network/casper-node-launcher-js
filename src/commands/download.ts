@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Args, Command, ux } from "@oclif/core";
+import { Args, Command } from "@oclif/core";
 
 import download from "../utils/download";
 import {
@@ -13,7 +13,7 @@ import {
 } from "../config";
 
 export default class Download extends Command {
-  static description = "Run single casper node";
+  static description = "Download required assets for running casper node.";
 
   static args = {
     branch: Args.string({
@@ -36,6 +36,7 @@ export default class Download extends Command {
     if (!fs.existsSync(configDir)) {
       fs.mkdirSync(configDir, { recursive: true });
     }
+
     const binaryPath = path.resolve(__dirname, "../..", BIN_DIR, "casper-node");
 
     if (!fs.existsSync(binaryPath)) {
@@ -45,6 +46,7 @@ export default class Download extends Command {
         console.error
       );
     }
+
     // https://ss64.com/bash/chmod.html
     fs.chmodSync(binaryPath, "751");
 

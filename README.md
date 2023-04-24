@@ -1,7 +1,6 @@
-oclif-hello-world
-=================
+# casper-node-launcher
 
-oclif example Hello World CLI
+The npm library for makes easy to run casper node for test purpose.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
@@ -10,45 +9,53 @@ oclif example Hello World CLI
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
-$ npm install -g casper-node-manage
-$ casper-node-manage COMMAND
+$ npm install -g casper-node-launcher
+$ casper-node-launcher COMMAND
 running command...
-$ casper-node-manage (--version)
-casper-node-manage/0.0.0 linux-x64 node-v16.15.1
-$ casper-node-manage --help [COMMAND]
+$ casper-node-launcher (--version)
+casper-node-launcher/0.0.0 linux-x64 node-v16.15.1
+$ casper-node-launcher --help [COMMAND]
 USAGE
-  $ casper-node-manage COMMAND
+  $ casper-node-launcher COMMAND
 ...
 ```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
-* [`casper-node-manage hello PERSON`](#casper-node-manage-hello-person)
-* [`casper-node-manage hello world`](#casper-node-manage-hello-world)
-* [`casper-node-manage help [COMMANDS]`](#casper-node-manage-help-commands)
-* [`casper-node-manage plugins`](#casper-node-manage-plugins)
-* [`casper-node-manage plugins:install PLUGIN...`](#casper-node-manage-pluginsinstall-plugin)
-* [`casper-node-manage plugins:inspect PLUGIN...`](#casper-node-manage-pluginsinspect-plugin)
-* [`casper-node-manage plugins:install PLUGIN...`](#casper-node-manage-pluginsinstall-plugin-1)
-* [`casper-node-manage plugins:link PLUGIN`](#casper-node-manage-pluginslink-plugin)
-* [`casper-node-manage plugins:uninstall PLUGIN...`](#casper-node-manage-pluginsuninstall-plugin)
-* [`casper-node-manage plugins:uninstall PLUGIN...`](#casper-node-manage-pluginsuninstall-plugin-1)
-* [`casper-node-manage plugins:uninstall PLUGIN...`](#casper-node-manage-pluginsuninstall-plugin-2)
-* [`casper-node-manage plugins update`](#casper-node-manage-plugins-update)
 
-## `casper-node-manage hello PERSON`
+<!-- usagestop -->
+
+# Commands
+
+<!-- commands -->
+
+- [`casper-node-launcher hello PERSON`](#casper-node-launcher-hello-person)
+- [`casper-node-launcher hello world`](#casper-node-launcher-hello-world)
+- [`casper-node-launcher help [COMMANDS]`](#casper-node-launcher-help-commands)
+- [`casper-node-launcher plugins`](#casper-node-launcher-plugins)
+- [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin)
+- [`casper-node-launcher plugins:inspect PLUGIN...`](#casper-node-launcher-pluginsinspect-plugin)
+- [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin-1)
+- [`casper-node-launcher plugins:link PLUGIN`](#casper-node-launcher-pluginslink-plugin)
+- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin)
+- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-1)
+- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-2)
+- [`casper-node-launcher plugins update`](#casper-node-launcher-plugins-update)
+
+## `casper-node-launcher hello PERSON`
 
 Say hello
 
 ```
 USAGE
-  $ casper-node-manage hello PERSON -f <value>
+  $ casper-node-launcher hello PERSON -f <value>
 
 ARGUMENTS
   PERSON  Person to say hello to
@@ -64,31 +71,31 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/gyroflaw/casper-node-manage/blob/v0.0.0/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/gyroflaw/casper-node-launcher/blob/v0.0.0/dist/commands/hello/index.ts)_
 
-## `casper-node-manage hello world`
+## `casper-node-launcher hello world`
 
 Say hello world
 
 ```
 USAGE
-  $ casper-node-manage hello world
+  $ casper-node-launcher hello world
 
 DESCRIPTION
   Say hello world
 
 EXAMPLES
-  $ casper-node-manage hello world
+  $ casper-node-launcher hello world
   hello world! (./src/commands/hello/world.ts)
 ```
 
-## `casper-node-manage help [COMMANDS]`
+## `casper-node-launcher help [COMMANDS]`
 
-Display help for casper-node-manage.
+Display help for casper-node-launcher.
 
 ```
 USAGE
-  $ casper-node-manage help [COMMANDS] [-n]
+  $ casper-node-launcher help [COMMANDS] [-n]
 
 ARGUMENTS
   COMMANDS  Command to show help for.
@@ -97,18 +104,18 @@ FLAGS
   -n, --nested-commands  Include all nested commands in the output.
 
 DESCRIPTION
-  Display help for casper-node-manage.
+  Display help for casper-node-launcher.
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
 
-## `casper-node-manage plugins`
+## `casper-node-launcher plugins`
 
 List installed plugins.
 
 ```
 USAGE
-  $ casper-node-manage plugins [--core]
+  $ casper-node-launcher plugins [--core]
 
 FLAGS
   --core  Show core plugins.
@@ -117,18 +124,18 @@ DESCRIPTION
   List installed plugins.
 
 EXAMPLES
-  $ casper-node-manage plugins
+  $ casper-node-launcher plugins
 ```
 
 _See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/index.ts)_
 
-## `casper-node-manage plugins:install PLUGIN...`
+## `casper-node-launcher plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ casper-node-manage plugins:install PLUGIN...
+  $ casper-node-launcher plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -150,23 +157,23 @@ DESCRIPTION
 
 
 ALIASES
-  $ casper-node-manage plugins add
+  $ casper-node-launcher plugins add
 
 EXAMPLES
-  $ casper-node-manage plugins:install myplugin 
+  $ casper-node-launcher plugins:install myplugin
 
-  $ casper-node-manage plugins:install https://github.com/someuser/someplugin
+  $ casper-node-launcher plugins:install https://github.com/someuser/someplugin
 
-  $ casper-node-manage plugins:install someuser/someplugin
+  $ casper-node-launcher plugins:install someuser/someplugin
 ```
 
-## `casper-node-manage plugins:inspect PLUGIN...`
+## `casper-node-launcher plugins:inspect PLUGIN...`
 
 Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ casper-node-manage plugins:inspect PLUGIN...
+  $ casper-node-launcher plugins:inspect PLUGIN...
 
 ARGUMENTS
   PLUGIN  [default: .] Plugin to inspect.
@@ -182,16 +189,16 @@ DESCRIPTION
   Displays installation properties of a plugin.
 
 EXAMPLES
-  $ casper-node-manage plugins:inspect myplugin
+  $ casper-node-launcher plugins:inspect myplugin
 ```
 
-## `casper-node-manage plugins:install PLUGIN...`
+## `casper-node-launcher plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ casper-node-manage plugins:install PLUGIN...
+  $ casper-node-launcher plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -213,23 +220,23 @@ DESCRIPTION
 
 
 ALIASES
-  $ casper-node-manage plugins add
+  $ casper-node-launcher plugins add
 
 EXAMPLES
-  $ casper-node-manage plugins:install myplugin 
+  $ casper-node-launcher plugins:install myplugin
 
-  $ casper-node-manage plugins:install https://github.com/someuser/someplugin
+  $ casper-node-launcher plugins:install https://github.com/someuser/someplugin
 
-  $ casper-node-manage plugins:install someuser/someplugin
+  $ casper-node-launcher plugins:install someuser/someplugin
 ```
 
-## `casper-node-manage plugins:link PLUGIN`
+## `casper-node-launcher plugins:link PLUGIN`
 
 Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ casper-node-manage plugins:link PLUGIN
+  $ casper-node-launcher plugins:link PLUGIN
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -247,16 +254,16 @@ DESCRIPTION
 
 
 EXAMPLES
-  $ casper-node-manage plugins:link myplugin
+  $ casper-node-launcher plugins:link myplugin
 ```
 
-## `casper-node-manage plugins:uninstall PLUGIN...`
+## `casper-node-launcher plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ casper-node-manage plugins:uninstall PLUGIN...
+  $ casper-node-launcher plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -269,17 +276,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ casper-node-manage plugins unlink
-  $ casper-node-manage plugins remove
+  $ casper-node-launcher plugins unlink
+  $ casper-node-launcher plugins remove
 ```
 
-## `casper-node-manage plugins:uninstall PLUGIN...`
+## `casper-node-launcher plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ casper-node-manage plugins:uninstall PLUGIN...
+  $ casper-node-launcher plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -292,17 +299,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ casper-node-manage plugins unlink
-  $ casper-node-manage plugins remove
+  $ casper-node-launcher plugins unlink
+  $ casper-node-launcher plugins remove
 ```
 
-## `casper-node-manage plugins:uninstall PLUGIN...`
+## `casper-node-launcher plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ casper-node-manage plugins:uninstall PLUGIN...
+  $ casper-node-launcher plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -315,17 +322,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ casper-node-manage plugins unlink
-  $ casper-node-manage plugins remove
+  $ casper-node-launcher plugins unlink
+  $ casper-node-launcher plugins remove
 ```
 
-## `casper-node-manage plugins update`
+## `casper-node-launcher plugins update`
 
 Update installed plugins.
 
 ```
 USAGE
-  $ casper-node-manage plugins update [-h] [-v]
+  $ casper-node-launcher plugins update [-h] [-v]
 
 FLAGS
   -h, --help     Show CLI help.
@@ -334,4 +341,5 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
+
 <!-- commandsstop -->
