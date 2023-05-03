@@ -57,9 +57,4 @@ export const FUNDED_KEYS = [
     public:
       "013bf82b19cec318a992dee5c3956bb7252a4f3f65887fe1221128b6c48f68334a",
   },
-  {
-    private: "MC4CAQAwBQYDK2VwBCIEIKERHOT5uH5ElxtXkZX5guFf46Ls3krqbDrv6pDXJPoj",
-    public:
-      "014f526dff2de498d81f5c6bb800a8bbe12603f215c842c6d5b8e61a095a69f616",
-  },
 ];
