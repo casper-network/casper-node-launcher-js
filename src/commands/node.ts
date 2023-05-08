@@ -15,8 +15,8 @@ export default class Node extends Command {
     await this.config.runCommand("download");
     ux.action.stop();
 
-    ux.action.start("Generating chain spec");
-    await this.config.runCommand("generate-chainspec");
+    ux.action.start("Generating config files to run node");
+    await this.config.runCommand("config");
     ux.action.stop();
 
     const workDir = path.resolve(__dirname, "../..", WORK_DIR);

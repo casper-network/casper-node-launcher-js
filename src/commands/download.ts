@@ -39,6 +39,8 @@ export default class Download extends Command {
 
     const binaryPath = path.resolve(__dirname, "../..", BIN_DIR, "casper-node");
 
+    this.log(nodeUrl.replace("{GH_BRANCH}", args.branch))
+
     if (!fs.existsSync(binaryPath)) {
       await download(
         nodeUrl.replace("{GH_BRANCH}", args.branch),

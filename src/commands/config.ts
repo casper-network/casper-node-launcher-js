@@ -9,14 +9,15 @@ import envsub from "envsub";
 
 import { CONFIG_DIR } from "../config";
 
-export default class Hello extends Command {
-  static description = "Generate chainspec file";
+export default class Config extends Command {
+  static description = "Generate config files";
 
   async run(): Promise<void> {
     const configDir = path.resolve(__dirname, "../..", CONFIG_DIR);
     const templateFile = path.resolve(configDir, "chainspec.toml.in");
     const outputFile = path.resolve(configDir, "chainspec.toml");
     const configFile = path.resolve(configDir, "config.toml");
+    const assetsPath = path.resolve(__dirname, "../..", "src", "assets/*");
 
     // generate activation point
     // eslint-disable-next-line no-mixed-operators
@@ -46,5 +47,8 @@ export default class Hello extends Command {
       "min_peers_for_initialization = 0",
       configFile
     );
+
+    // Copy accounts
+    shell.cp("", assetsPath, configDir);
   }
 }
