@@ -9,85 +9,74 @@ The npm library for makes easy to run casper node for test purpose.
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
+* [casper-node-launcher](#casper-node-launcher)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g casper-node-launcher
 $ casper-node-launcher COMMAND
 running command...
 $ casper-node-launcher (--version)
-casper-node-launcher/0.0.0 linux-x64 node-v16.15.1
+casper-node-launcher/0.0.2 linux-x64 node-v16.15.1
 $ casper-node-launcher --help [COMMAND]
 USAGE
   $ casper-node-launcher COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`casper-node-launcher config`](#casper-node-launcher-config)
+* [`casper-node-launcher download [BRANCH]`](#casper-node-launcher-download-branch)
+* [`casper-node-launcher help [COMMANDS]`](#casper-node-launcher-help-commands)
+* [`casper-node-launcher node`](#casper-node-launcher-node)
+* [`casper-node-launcher plugins`](#casper-node-launcher-plugins)
+* [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin)
+* [`casper-node-launcher plugins:inspect PLUGIN...`](#casper-node-launcher-pluginsinspect-plugin)
+* [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin-1)
+* [`casper-node-launcher plugins:link PLUGIN`](#casper-node-launcher-pluginslink-plugin)
+* [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin)
+* [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-1)
+* [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-2)
+* [`casper-node-launcher plugins update`](#casper-node-launcher-plugins-update)
 
-- [`casper-node-launcher hello PERSON`](#casper-node-launcher-hello-person)
-- [`casper-node-launcher hello world`](#casper-node-launcher-hello-world)
-- [`casper-node-launcher help [COMMANDS]`](#casper-node-launcher-help-commands)
-- [`casper-node-launcher plugins`](#casper-node-launcher-plugins)
-- [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin)
-- [`casper-node-launcher plugins:inspect PLUGIN...`](#casper-node-launcher-pluginsinspect-plugin)
-- [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin-1)
-- [`casper-node-launcher plugins:link PLUGIN`](#casper-node-launcher-pluginslink-plugin)
-- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin)
-- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-1)
-- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-2)
-- [`casper-node-launcher plugins update`](#casper-node-launcher-plugins-update)
+## `casper-node-launcher config`
 
-## `casper-node-launcher hello PERSON`
-
-Say hello
+Generate config files
 
 ```
 USAGE
-  $ casper-node-launcher hello PERSON -f <value>
+  $ casper-node-launcher config
+
+DESCRIPTION
+  Generate config files
+```
+
+_See code: [dist/commands/config.ts](https://github.com/gyroflaw/casper-node-launcher/blob/v0.0.2/dist/commands/config.ts)_
+
+## `casper-node-launcher download [BRANCH]`
+
+Download required assets for running casper node.
+
+```
+USAGE
+  $ casper-node-launcher download [BRANCH]
 
 ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
+  BRANCH  (dev|1.4.8) [default: dev] The branch to use
 
 DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
+  Download required assets for running casper node.
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/gyroflaw/casper-node-launcher/blob/v0.0.0/dist/commands/hello/index.ts)_
-
-## `casper-node-launcher hello world`
-
-Say hello world
-
-```
-USAGE
-  $ casper-node-launcher hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ casper-node-launcher hello world
-  hello world! (./src/commands/hello/world.ts)
-```
+_See code: [dist/commands/download.ts](https://github.com/gyroflaw/casper-node-launcher/blob/v0.0.2/dist/commands/download.ts)_
 
 ## `casper-node-launcher help [COMMANDS]`
 
@@ -108,6 +97,20 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
+
+## `casper-node-launcher node`
+
+Starts a single Casper node.
+
+```
+USAGE
+  $ casper-node-launcher node
+
+DESCRIPTION
+  Starts a single Casper node.
+```
+
+_See code: [dist/commands/node.ts](https://github.com/gyroflaw/casper-node-launcher/blob/v0.0.2/dist/commands/node.ts)_
 
 ## `casper-node-launcher plugins`
 
@@ -160,7 +163,7 @@ ALIASES
   $ casper-node-launcher plugins add
 
 EXAMPLES
-  $ casper-node-launcher plugins:install myplugin
+  $ casper-node-launcher plugins:install myplugin 
 
   $ casper-node-launcher plugins:install https://github.com/someuser/someplugin
 
@@ -223,7 +226,7 @@ ALIASES
   $ casper-node-launcher plugins add
 
 EXAMPLES
-  $ casper-node-launcher plugins:install myplugin
+  $ casper-node-launcher plugins:install myplugin 
 
   $ casper-node-launcher plugins:install https://github.com/someuser/someplugin
 
@@ -341,5 +344,4 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
-
 <!-- commandsstop -->

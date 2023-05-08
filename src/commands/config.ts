@@ -17,7 +17,7 @@ export default class Config extends Command {
     const templateFile = path.resolve(configDir, "chainspec.toml.in");
     const outputFile = path.resolve(configDir, "chainspec.toml");
     const configFile = path.resolve(configDir, "config.toml");
-    const assetsPath = path.resolve(__dirname, "../..", "src", "assets/*");
+    const assetsPath = path.resolve(__dirname, "../..", "assets/*");
 
     // generate activation point
     // eslint-disable-next-line no-mixed-operators
@@ -47,6 +47,9 @@ export default class Config extends Command {
       "min_peers_for_initialization = 0",
       configFile
     );
+
+    // disable diagnostics port
+    shell.sed("-i", "enabled = true", "enabled = false", configFile);
 
     // Copy accounts
     shell.cp("", assetsPath, configDir);

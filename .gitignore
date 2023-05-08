@@ -8,5 +8,7 @@
 node_modules
 oclif.manifest.json
 
+tsconfig.tsbuildinfo
+
 # Casper node
 /casper-node
