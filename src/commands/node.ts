@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { spawn } from "node:child_process";
+import { spawn, execFile } from "node:child_process";
 
 import { Args, Command, ux } from "@oclif/core";
 import kleur from "kleur";
@@ -50,6 +50,24 @@ export default class Node extends Command {
       fs.rmSync(dbPath, { recursive: true, force: true });
     }
 
+    // log the node version
+
+    const logNodeVersion = async (binaryPath: string) => {
+      return new Promise<void>((resolve, reject) => {
+        execFile(binaryPath, ["--version"], (error, stdout) => {
+          if (error) {
+            return reject(error);
+          }
+
+          this.log(`Casper Binary Version: ${stdout}`);
+
+          return resolve();
+        });
+      });
+    };
+
+    await logNodeVersion(binaryPath);
+
     // start the casper-node process
     const casperNode = spawn(binaryPath, ["validator", configPath]);
 
@@ -75,21 +93,24 @@ export default class Node extends Command {
       // started JSON RPC server; address=0.0.0.0:7777
       // started REST server; address=0.0.0.0:8888
       // started event stream server; address=0.0.0.0:9999
-      if (data.includes("started JSON RPC server")) {
+      if (
+        data.includes("started JSON RPC server") ||
+        data.includes("started JSON-RPC server")
+      ) {
         console.info(
-          kleur.green(`Started JSON RPC server at https://127.0.0.1:7777/rpc`)
+          kleur.green(`Started JSON RPC server at http://127.0.0.1:7777/rpc`)
         );
       }
 
       if (data.includes("started REST server")) {
         console.info(
-          kleur.green(`Started REST server at https://127.0.0.1:8888`)
+          kleur.green(`Started REST server at http://127.0.0.1:8888`)
         );
       }
 
       if (data.includes("started event stream server")) {
         console.info(
-          kleur.green(`Started event stream server at https://127.0.0.1:9999`)
+          kleur.green(`Started event stream server at http://127.0.0.1:9999`)
         );
       }
     });

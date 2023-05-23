@@ -55,11 +55,6 @@ export default class Download extends Command {
     const specPath = path.resolve(configDir, "chainspec.toml.in");
     const configPath = path.resolve(configDir, "config.toml");
 
-    console.log(
-      chainSpecTemplate.replace("{GH_BRANCH}", args.branch),
-      configFile.replace("{GH_BRANCH}", args.branch)
-    );
-
     if (!fs.existsSync(specPath)) {
       await download(
         chainSpecTemplate.replace("{GH_BRANCH}", args.branch),
