@@ -33,7 +33,7 @@ export default class Download extends Command {
     const binDir = path.resolve(workDir, BIN_DIR);
     const configDir = path.resolve(workDir, CONFIG_DIR);
 
-    if (!fs.existsSync(workDir)) fs.mkdirSync(workDir);
+    if (!fs.existsSync(workDir)) fs.mkdirSync(workDir, { recursive: true });
     if (!fs.existsSync(binDir)) fs.mkdirSync(binDir);
     if (!fs.existsSync(configDir)) {
       fs.mkdirSync(configDir, { recursive: true });
