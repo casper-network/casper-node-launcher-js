@@ -88,27 +88,34 @@ export default class Node extends Command {
       flags: "a",
     });
 
+    let rpcStarted = false;
+    let restStarted = false;
+    let eventStreamStarted = false;
     casperNode.stdout.setEncoding("utf8");
     casperNode.stdout.on("data", function (data) {
       // started JSON RPC server; address=0.0.0.0:7777
       // started REST server; address=0.0.0.0:8888
       // started event stream server; address=0.0.0.0:9999
       if (
-        data.includes("started JSON RPC server") ||
-        data.includes("started JSON-RPC server")
+        (data.includes("started JSON RPC server") ||
+          data.includes("started JSON-RPC server")) &&
+        !rpcStarted
       ) {
+        rpcStarted = true;
         console.info(
           kleur.green(`Started JSON RPC server at http://127.0.0.1:7777/rpc`)
         );
       }
 
-      if (data.includes("started REST server")) {
+      if (data.includes("started REST server") && !restStarted) {
+        restStarted = true;
         console.info(
           kleur.green(`Started REST server at http://127.0.0.1:8888`)
         );
       }
 
-      if (data.includes("started event stream server")) {
+      if (data.includes("started event stream server") && !eventStreamStarted) {
+        eventStreamStarted = true;
         console.info(
           kleur.green(`Started event stream server at http://127.0.0.1:9999`)
         );
