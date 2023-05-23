@@ -1,19 +1,41 @@
-// import * as fs from "node:fs";
+import * as fs from "node:fs";
 import * as path from "node:path";
 
 import shell from "shelljs";
-import { Command } from "@oclif/core";
+import { Args, Command } from "@oclif/core";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import envsub from "envsub";
 
-import { CONFIG_DIR } from "../config";
+import { CONFIG_DIR, NODE_VERSIONS, WORK_DIR } from "../config";
 
 export default class Config extends Command {
   static description = "Generate config files";
 
+  static args = {
+    branch: Args.string({
+      name: "branch", // name of arg to show in help and reference with args[name]
+      required: false, // make the arg required with `required: true`
+      description: "The branch to use", // help description
+      default: NODE_VERSIONS.at(-2)!, // use the latest release version
+      options: NODE_VERSIONS, // only allow input to be from a discrete set
+    }),
+  };
+
   async run(): Promise<void> {
-    const configDir = path.resolve(__dirname, "../..", CONFIG_DIR);
+    const { args } = await this.parse(Config);
+
+    const configDir = path.resolve(
+      __dirname,
+      "../..",
+      WORK_DIR,
+      args.branch,
+      CONFIG_DIR
+    );
+    if (!fs.existsSync(configDir)) {
+      fs.mkdirSync(configDir, { recursive: true });
+    }
+
     const templateFile = path.resolve(configDir, "chainspec.toml.in");
     const outputFile = path.resolve(configDir, "chainspec.toml");
     const configFile = path.resolve(configDir, "config.toml");

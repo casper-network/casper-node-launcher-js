@@ -2,28 +2,47 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { spawn } from "node:child_process";
 
-import { Command, ux } from "@oclif/core";
+import { Args, Command, ux } from "@oclif/core";
 import kleur from "kleur";
 
-import { BIN_DIR, CONFIG_DIR, FUNDED_KEYS, WORK_DIR } from "../config";
+import {
+  BIN_DIR,
+  CONFIG_DIR,
+  FUNDED_KEYS,
+  NODE_VERSIONS,
+  WORK_DIR,
+} from "../config";
 
 export default class Node extends Command {
-  static description = " Starts a single Casper node.";
+  static description = "Starts a single Casper node.";
+
+  static args = {
+    branch: Args.string({
+      name: "branch", // name of arg to show in help and reference with args[name]
+      required: false, // make the arg required with `required: true`
+      description: "The branch to use", // help description
+      default: NODE_VERSIONS.at(-2)!, // use the latest release version
+      options: NODE_VERSIONS, // only allow input to be from a discrete set
+    }),
+  };
 
   async run(): Promise<void> {
+    const { args } = await this.parse(Node);
+
     ux.action.start("Donwloading assets");
-    await this.config.runCommand("download");
+    await this.config.runCommand("download", this.argv);
     ux.action.stop();
 
     ux.action.start("Generating config files to run node");
-    await this.config.runCommand("config");
+    await this.config.runCommand("config", this.argv);
     ux.action.stop();
 
-    const workDir = path.resolve(__dirname, "../..", WORK_DIR);
-    const configDir = path.resolve(__dirname, "../..", CONFIG_DIR);
-    const binaryPath = path.resolve(__dirname, "../..", BIN_DIR, "casper-node");
+    const workDir = path.resolve(__dirname, "../..", WORK_DIR, args.branch);
+    const binDir = path.resolve(workDir, BIN_DIR);
+    const configDir = path.resolve(workDir, CONFIG_DIR);
+    const binaryPath = path.resolve(binDir, "casper-node");
     const configPath = path.resolve(configDir, "config.toml");
-    const dbPath = path.resolve(workDir, "config", "node-storage");
+    const dbPath = path.resolve(configDir, "..", "node-storage");
 
     // Remove old db if exists
     if (fs.existsSync(dbPath)) {
@@ -64,7 +83,7 @@ export default class Node extends Command {
 
       if (data.includes("started REST server")) {
         console.info(
-          kleur.green(`Started REST server node at https://127.0.0.1:8888`)
+          kleur.green(`Started REST server at https://127.0.0.1:8888`)
         );
       }
 

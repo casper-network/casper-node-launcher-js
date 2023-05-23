@@ -1,10 +1,44 @@
 export const WORK_DIR = "casper-node";
-export const BIN_DIR = `${WORK_DIR}/bin`;
-export const CONFIG_DIR = `${WORK_DIR}/config/1_0_0`;
+export const BIN_DIR = `bin`;
+export const CONFIG_DIR = `config/1_0_0`;
 
 export const nodeUrl = `https://s3.us-east-2.amazonaws.com/nctl.casperlabs.io/{GH_BRANCH}/casper-node`;
-export const chainSpecTemplate = `https://raw.githubusercontent.com/casper-network/casper-node/dev/resources/local/chainspec.toml.in`;
-export const configFile = `https://raw.githubusercontent.com/casper-network/casper-node/dev/resources/local/config.toml`;
+export const chainSpecTemplate = `https://raw.githubusercontent.com/casper-network/casper-node/{GH_BRANCH}/resources/local/chainspec.toml.in`;
+export const configFile = `https://raw.githubusercontent.com/casper-network/casper-node/{GH_BRANCH}/resources/local/config.toml`;
+
+export const NODE_VERSIONS = [
+  "v0.9.0",
+  "v0.9.3",
+  "v0.9.3.1",
+  "v0.9.4",
+  "v1.0.0",
+  "v1.0.1",
+  "v1.1.0",
+  "v1.1.1",
+  "v1.1.2",
+  "v1.2.0",
+  "v1.2.1",
+  "v1.3.0",
+  "v1.3.1",
+  "v1.3.2",
+  "v1.3.3",
+  "v1.3.4",
+  "v1.4.0",
+  "v1.4.1",
+  "v1.4.2",
+  "v1.4.3",
+  "v1.4.4",
+  "v1.4.5",
+  "v1.4.6",
+  "v1.4.8",
+  "v1.4.9",
+  "v1.4.13",
+  "v1.4.14",
+  "v1.4.15",
+  "v1.4.15-alt",
+  // "v1.5.0-rc.1",  // should enable after release
+  "dev",
+];
 
 export const FUNDED_KEYS = [
   {
