@@ -92,3 +92,10 @@ export const FUNDED_KEYS = [
       "013bf82b19cec318a992dee5c3956bb7252a4f3f65887fe1221128b6c48f68334a",
   },
 ];
+
+export const NETWORK_NAMES = [
+  "casper",
+  "casper-test",
+  "casper-net-1",
+  "casper-example",
+];

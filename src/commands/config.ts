@@ -7,7 +7,7 @@ import { Args, Command } from "@oclif/core";
 // @ts-ignore
 import envsub from "envsub";
 
-import { CONFIG_DIR, NODE_VERSIONS, WORK_DIR } from "../config";
+import { CONFIG_DIR, NETWORK_NAMES, NODE_VERSIONS, WORK_DIR } from "../config";
 
 export default class Config extends Command {
   static description = "Generate config files";
@@ -19,6 +19,13 @@ export default class Config extends Command {
       description: "The branch to use", // help description
       default: NODE_VERSIONS.at(-2)!, // use the latest release version
       options: NODE_VERSIONS, // only allow input to be from a discrete set
+    }),
+    networkName: Args.string({
+      name: "networkName", // name of arg to show in help and reference with args[name]
+      required: false, // make the arg required with `required: true`
+      description: "The default network name", // help description
+      default: NETWORK_NAMES.at(-2)!, // use the latest release version
+      options: NETWORK_NAMES, // only allow input to be from a discrete set
     }),
   };
 
@@ -60,6 +67,13 @@ export default class Config extends Command {
       "-i",
       "max_ttl = '5minutes'",
       "max_ttl = '30minutes'",
+      outputFile
+    );
+
+    shell.sed(
+      "-i",
+      "name = 'casper-example'",
+      `name = '${args.networkName}'`,
       outputFile
     );
 

@@ -2,13 +2,14 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { spawn, execFile } from "node:child_process";
 
-import { Args, Command, ux } from "@oclif/core";
+import { Args, Command, Flags, ux } from "@oclif/core";
 import kleur from "kleur";
 
 import {
   BIN_DIR,
   CONFIG_DIR,
   FUNDED_KEYS,
+  NETWORK_NAMES,
   NODE_VERSIONS,
   WORK_DIR,
 } from "../config";
@@ -24,17 +25,29 @@ export default class Node extends Command {
       default: NODE_VERSIONS.at(-2)!, // use the latest release version
       options: NODE_VERSIONS, // only allow input to be from a discrete set
     }),
+    networkName: Args.string({
+      name: "networkName", // name of arg to show in help and reference with args[name]
+      required: false, // make the arg required with `required: true`
+      description: "The default network name", // help description
+      default: NETWORK_NAMES.at(-2)!, // use the latest release version
+      options: NETWORK_NAMES, // only allow input to be from a discrete set
+    }),
+  };
+
+  static flags = {
+    // can pass either --force or -f
+    daemon: Flags.boolean({ char: "d" }),
   };
 
   async run(): Promise<void> {
-    const { args } = await this.parse(Node);
+    const { args, flags } = await this.parse(Node);
 
     ux.action.start("Donwloading assets");
-    await this.config.runCommand("download", this.argv);
+    await this.config.runCommand("download", [args.branch]);
     ux.action.stop();
 
     ux.action.start("Generating config files to run node");
-    await this.config.runCommand("config", this.argv);
+    await this.config.runCommand("config", [args.branch, args.networkName]);
     ux.action.stop();
 
     const workDir = path.resolve(__dirname, "../..", WORK_DIR, args.branch);
@@ -69,7 +82,10 @@ export default class Node extends Command {
     await logNodeVersion(binaryPath);
 
     // start the casper-node process
-    const casperNode = spawn(binaryPath, ["validator", configPath]);
+    const casperNode = spawn(binaryPath, ["validator", configPath], {
+      detached: flags.daemon,
+      // stdio: flags.daemon ? "ignore" : undefined,
+    });
 
     // log the error & close to console
     casperNode.on("error", (error) => {
@@ -91,8 +107,8 @@ export default class Node extends Command {
     let rpcStarted = false;
     let restStarted = false;
     let eventStreamStarted = false;
-    casperNode.stdout.setEncoding("utf8");
-    casperNode.stdout.on("data", function (data) {
+    casperNode.stdout?.setEncoding("utf8");
+    casperNode.stdout?.on("data", function (data) {
       // started JSON RPC server; address=0.0.0.0:7777
       // started REST server; address=0.0.0.0:8888
       // started event stream server; address=0.0.0.0:9999
@@ -123,10 +139,12 @@ export default class Node extends Command {
     });
 
     // log casper-node to temp dir for local use
-    casperNode.stdout.pipe(stdoutFile);
-    casperNode.stderr.pipe(stderrFile);
+    casperNode.stdout?.pipe(stdoutFile);
+    casperNode.stderr?.pipe(stderrFile);
 
-    console.log(casperNode.pid);
+    if (casperNode.pid) {
+      fs.writeFileSync(workDir + "/.pid", `${casperNode.pid}`);
+    }
 
     console.info(
       kleur
@@ -141,5 +159,19 @@ export default class Node extends Command {
         `Account #${i}\nPublic Key: ${key.public}\nPrivate Key: ${key.private}\n`
       );
     });
+
+    if (flags.daemon) {
+      // eslint-disable-next-line prefer-const
+      let timer: NodeJS.Timer;
+      const exitNode = () => {
+        console.log(rpcStarted, restStarted);
+        if (rpcStarted && restStarted && eventStreamStarted) {
+          casperNode.unref();
+          clearTimeout(timer);
+        }
+      };
+
+      timer = setInterval(exitNode.bind(this), 2500);
+    }
   }
 }
