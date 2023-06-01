@@ -4,9 +4,7 @@ The npm library for makes easy to run casper node for test purpose.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
+[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/gyroflaw/casper-node-launcher/blob/main/package.json)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
@@ -39,10 +37,10 @@ USAGE
 
 <!-- commands -->
 
-- [`casper-node-launcher config`](#casper-node-launcher-config)
+- [`casper-node-launcher config [BRANCH] [NETWORKNAME]`](#casper-node-launcher-config-branch-networkname)
 - [`casper-node-launcher download [BRANCH]`](#casper-node-launcher-download-branch)
 - [`casper-node-launcher help [COMMANDS]`](#casper-node-launcher-help-commands)
-- [`casper-node-launcher node`](#casper-node-launcher-node)
+- [`casper-node-launcher node [BRANCH] [NETWORKNAME]`](#casper-node-launcher-node-branch-networkname)
 - [`casper-node-launcher plugins`](#casper-node-launcher-plugins)
 - [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin)
 - [`casper-node-launcher plugins:inspect PLUGIN...`](#casper-node-launcher-pluginsinspect-plugin)
@@ -53,13 +51,19 @@ USAGE
 - [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-2)
 - [`casper-node-launcher plugins update`](#casper-node-launcher-plugins-update)
 
-## `casper-node-launcher config`
+## `casper-node-launcher config [BRANCH] [NETWORKNAME]`
 
 Generate config files
 
 ```
 USAGE
-  $ casper-node-launcher config
+  $ casper-node-launcher config [BRANCH] [NETWORKNAME]
+
+ARGUMENTS
+  BRANCH       (v0.9.0|v0.9.3|v0.9.3.1|v0.9.4|v1.0.0|v1.0.1|v1.1.0|v1.1.1|v1.1.2|v1.2.0|v1.2.1|v1.3.0|v1.3.1|v1.3.2|v1.3
+               .3|v1.3.4|v1.4.0|v1.4.1|v1.4.2|v1.4.3|v1.4.4|v1.4.5|v1.4.6|v1.4.8|v1.4.9|v1.4.13|v1.4.14|v1.4.15|v1.4.15-
+               alt|dev) [default: v1.4.15-alt] The branch to use
+  NETWORKNAME  (casper|casper-test|casper-net-1|casper-example) [default: casper-net-1] The default network name
 
 DESCRIPTION
   Generate config files
@@ -76,7 +80,9 @@ USAGE
   $ casper-node-launcher download [BRANCH]
 
 ARGUMENTS
-  BRANCH  (dev|1.4.8) [default: dev] The branch to use
+  BRANCH  (v0.9.0|v0.9.3|v0.9.3.1|v0.9.4|v1.0.0|v1.0.1|v1.1.0|v1.1.1|v1.1.2|v1.2.0|v1.2.1|v1.3.0|v1.3.1|v1.3.2|v1.3.3|v1
+          .3.4|v1.4.0|v1.4.1|v1.4.2|v1.4.3|v1.4.4|v1.4.5|v1.4.6|v1.4.8|v1.4.9|v1.4.13|v1.4.14|v1.4.15|v1.4.15-alt|dev)
+          [default: v1.4.15-alt] The branch to use
 
 DESCRIPTION
   Download required assets for running casper node.
@@ -104,13 +110,22 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
 
-## `casper-node-launcher node`
+## `casper-node-launcher node [BRANCH] [NETWORKNAME]`
 
 Starts a single Casper node.
 
 ```
 USAGE
-  $ casper-node-launcher node
+  $ casper-node-launcher node [BRANCH] [NETWORKNAME] [-d]
+
+ARGUMENTS
+  BRANCH       (v0.9.0|v0.9.3|v0.9.3.1|v0.9.4|v1.0.0|v1.0.1|v1.1.0|v1.1.1|v1.1.2|v1.2.0|v1.2.1|v1.3.0|v1.3.1|v1.3.2|v1.3
+               .3|v1.3.4|v1.4.0|v1.4.1|v1.4.2|v1.4.3|v1.4.4|v1.4.5|v1.4.6|v1.4.8|v1.4.9|v1.4.13|v1.4.14|v1.4.15|v1.4.15-
+               alt|dev) [default: v1.4.15-alt] The branch to use
+  NETWORKNAME  (casper|casper-test|casper-net-1|casper-example) [default: casper-net-1] The default network name
+
+FLAGS
+  -d, --daemon
 
 DESCRIPTION
   Starts a single Casper node.
