@@ -8,15 +8,19 @@ The npm library for makes easy to run casper node for test purpose.
 [![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
+
 <!-- toc -->
-* [casper-node-launcher](#casper-node-launcher)
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [casper-node-launcher](#casper-node-launcher)
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g casper-node-launcher
 $ casper-node-launcher COMMAND
@@ -28,24 +32,26 @@ USAGE
   $ casper-node-launcher COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`casper-node-launcher config`](#casper-node-launcher-config)
-* [`casper-node-launcher download [BRANCH]`](#casper-node-launcher-download-branch)
-* [`casper-node-launcher help [COMMANDS]`](#casper-node-launcher-help-commands)
-* [`casper-node-launcher node`](#casper-node-launcher-node)
-* [`casper-node-launcher plugins`](#casper-node-launcher-plugins)
-* [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin)
-* [`casper-node-launcher plugins:inspect PLUGIN...`](#casper-node-launcher-pluginsinspect-plugin)
-* [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin-1)
-* [`casper-node-launcher plugins:link PLUGIN`](#casper-node-launcher-pluginslink-plugin)
-* [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin)
-* [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-1)
-* [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-2)
-* [`casper-node-launcher plugins update`](#casper-node-launcher-plugins-update)
+
+- [`casper-node-launcher config`](#casper-node-launcher-config)
+- [`casper-node-launcher download [BRANCH]`](#casper-node-launcher-download-branch)
+- [`casper-node-launcher help [COMMANDS]`](#casper-node-launcher-help-commands)
+- [`casper-node-launcher node`](#casper-node-launcher-node)
+- [`casper-node-launcher plugins`](#casper-node-launcher-plugins)
+- [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin)
+- [`casper-node-launcher plugins:inspect PLUGIN...`](#casper-node-launcher-pluginsinspect-plugin)
+- [`casper-node-launcher plugins:install PLUGIN...`](#casper-node-launcher-pluginsinstall-plugin-1)
+- [`casper-node-launcher plugins:link PLUGIN`](#casper-node-launcher-pluginslink-plugin)
+- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin)
+- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-1)
+- [`casper-node-launcher plugins:uninstall PLUGIN...`](#casper-node-launcher-pluginsuninstall-plugin-2)
+- [`casper-node-launcher plugins update`](#casper-node-launcher-plugins-update)
 
 ## `casper-node-launcher config`
 
@@ -163,7 +169,7 @@ ALIASES
   $ casper-node-launcher plugins add
 
 EXAMPLES
-  $ casper-node-launcher plugins:install myplugin 
+  $ casper-node-launcher plugins:install myplugin
 
   $ casper-node-launcher plugins:install https://github.com/someuser/someplugin
 
@@ -226,7 +232,7 @@ ALIASES
   $ casper-node-launcher plugins add
 
 EXAMPLES
-  $ casper-node-launcher plugins:install myplugin 
+  $ casper-node-launcher plugins:install myplugin
 
   $ casper-node-launcher plugins:install https://github.com/someuser/someplugin
 
@@ -344,4 +350,5 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
+
 <!-- commandsstop -->
