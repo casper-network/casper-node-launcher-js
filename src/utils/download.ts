@@ -17,31 +17,34 @@ export default async function download(
     throw new Error("Unable to access");
   }
 
-  const totalBytes = Number.parseInt(
-    response.headers.get("content-length")!,
-    10
-  );
-  progressBar.start(totalBytes, 0);
-  response.body
-    ?.on("data", (chunk) => {
-      receivedBytes += chunk.length;
-      progressBar.update(receivedBytes);
-    })
-    .pipe(file)
-    .on("error", (err) => {
+  return new Promise<void>((resolve) => {
+    const totalBytes = Number.parseInt(
+      response.headers.get("content-length")!,
+      10
+    );
+    progressBar.start(totalBytes, 0);
+    response.body
+      ?.on("data", (chunk) => {
+        receivedBytes += chunk.length;
+        progressBar.update(receivedBytes);
+      })
+      .pipe(file)
+      .on("error", (err) => {
+        fs.unlink(filename, (err) => console.error(err));
+        progressBar.stop();
+        return callback(err.message);
+      });
+
+    file.on("finish", () => {
+      progressBar.stop();
+      file.close(callback);
+      resolve();
+    });
+
+    file.on("error", (err) => {
       fs.unlink(filename, (err) => console.error(err));
       progressBar.stop();
       return callback(err.message);
     });
-
-  file.on("finish", () => {
-    progressBar.stop();
-    file.close(callback);
-  });
-
-  file.on("error", (err) => {
-    fs.unlink(filename, (err) => console.error(err));
-    progressBar.stop();
-    return callback(err.message);
   });
 }
