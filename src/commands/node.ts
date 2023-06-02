@@ -143,7 +143,7 @@ export default class Node extends Command {
     casperNode.stderr?.pipe(stderrFile);
 
     if (casperNode.pid) {
-      fs.writeFileSync(workDir + "/.pid", `${casperNode.pid}`);
+      fs.writeFileSync(path.resolve(workDir, "../.pid"), `${casperNode.pid}`);
     }
 
     console.info(
