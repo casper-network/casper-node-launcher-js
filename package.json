@@ -1,15 +1,15 @@
 {
-  "name": "casper-node-launcher",
+  "name": "casper-node-launcher-js",
   "version": "0.0.2",
   "description": "CLI for run single casper node for test purpose",
   "author": "gyroflaw",
   "bin": {
     "casper-node-launcher": "./bin/run"
   },
-  "homepage": "https://github.com/gyroflaw/casper-node-launcher",
+  "homepage": "https://github.com/casper-network/casper-node-launcher-js",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "gyroflaw/casper-node-launcher",
+  "repository": "casper-network/casper-node-launcher-js",
   "files": [
     "/bin",
     "/dist",
@@ -45,8 +45,8 @@
     "typescript": "^4.9.5"
   },
   "oclif": {
-    "bin": "casper-node-launcher",
-    "dirname": "casper-node-launcher",
+    "bin": "casper-node-launcher-js",
+    "dirname": "casper-node-launcher-js",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
@@ -67,7 +67,7 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "bugs": "https://github.com/gyroflaw/casper-node-launcher/issues",
+  "bugs": "https://github.com/casper-network/casper-node-launcher-js/issues",
   "keywords": [
     "oclif"
   ],
