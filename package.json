@@ -30,7 +30,7 @@
     "@oclif/test": "^2.3.22",
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.18.26",
+    "@types/node": "^16.18.35",
     "@types/node-fetch": "^2.6.4",
     "@types/shelljs": "^0.8.12",
     "chai": "^4",
