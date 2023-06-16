@@ -36,7 +36,8 @@ export const NODE_VERSIONS = [
   "v1.4.14",
   "v1.4.15",
   "v1.4.15-alt",
-  // "v1.5.0-rc.1",  // should enable after release
+  "v1.5.0-rc.1",
+  "v1.5.1",
   "dev",
 ];
 
