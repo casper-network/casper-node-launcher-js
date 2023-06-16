@@ -164,10 +164,10 @@ export default class Node extends Command {
       // eslint-disable-next-line prefer-const
       let timer: NodeJS.Timer;
       const exitNode = () => {
-        console.log(rpcStarted, restStarted);
         if (rpcStarted && restStarted && eventStreamStarted) {
           casperNode.unref();
           clearTimeout(timer);
+          process.exit(0);
         }
       };
 

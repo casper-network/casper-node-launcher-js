@@ -7,6 +7,8 @@
     "comma-dangle": "off",
     "indent": "off",
     "arrow-parens": "off",
+    "no-process-exit": "off",
+    "unicorn/no-process-exit": "off",
     "unicorn/prefer-module": "off",
     "unicorn/no-array-for-each": "off"
   }
