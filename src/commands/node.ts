@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { spawn, execFile } from "node:child_process";
+import chokidar from "chokidar";
 
 import { Args, Command, Flags, ux } from "@oclif/core";
 import kleur from "kleur";
@@ -84,8 +85,16 @@ export default class Node extends Command {
     // start the casper-node process
     const casperNode = spawn(binaryPath, ["validator", configPath], {
       detached: flags.daemon,
-      // stdio: flags.daemon ? "ignore" : undefined,
+      stdio: [
+        "ignore",
+        fs.openSync(workDir + "/stdout.log", "w"),
+        fs.openSync(workDir + "/stderr.log", "w"),
+      ],
     });
+
+    if (flags.daemon) {
+      casperNode.unref();
+    }
 
     // log the error & close to console
     casperNode.on("error", (error) => {
@@ -94,21 +103,20 @@ export default class Node extends Command {
 
     casperNode.on("close", (code) => {
       console.error(kleur.red(`[Casper node]: Exited ${code}`));
-    });
-
-    // setup the log files to write to
-    const stdoutFile = fs.createWriteStream(workDir + "/stdout.log", {
-      flags: "a",
-    });
-    const stderrFile = fs.createWriteStream(workDir + "/stderr.log", {
-      flags: "a",
+      process.exit(code ?? undefined);
     });
 
     let rpcStarted = false;
     let restStarted = false;
     let eventStreamStarted = false;
-    casperNode.stdout?.setEncoding("utf8");
-    casperNode.stdout?.on("data", function (data) {
+
+    const watcher = chokidar.watch(workDir + "/stdout.log", {
+      persistent: true,
+    });
+
+    watcher.on("change", (path) => {
+      const data = fs.readFileSync(path, "utf8");
+
       // started JSON RPC server; address=0.0.0.0:7777
       // started REST server; address=0.0.0.0:8888
       // started event stream server; address=0.0.0.0:9999
@@ -138,11 +146,8 @@ export default class Node extends Command {
       }
     });
 
-    // log casper-node to temp dir for local use
-    casperNode.stdout?.pipe(stdoutFile);
-    casperNode.stderr?.pipe(stderrFile);
-
-    if (casperNode.pid) {
+    // log pid for further stop
+    if (flags.daemon && casperNode.pid) {
       fs.writeFileSync(path.resolve(workDir, "../.pid"), `${casperNode.pid}`);
     }
 
@@ -165,7 +170,6 @@ export default class Node extends Command {
       let timer: NodeJS.Timer;
       const exitNode = () => {
         if (rpcStarted && restStarted && eventStreamStarted) {
-          casperNode.unref();
           clearTimeout(timer);
           process.exit(0);
         }
