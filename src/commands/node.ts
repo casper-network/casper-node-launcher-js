@@ -1,9 +1,9 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { spawn, execFile } from "node:child_process";
-import chokidar from "chokidar";
 
 import { Args, Command, Flags, ux } from "@oclif/core";
+import chokidar from "chokidar";
 import kleur from "kleur";
 
 import {
