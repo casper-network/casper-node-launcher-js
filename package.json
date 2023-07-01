@@ -24,7 +24,7 @@
     "chokidar": "^3.5.3",
     "envsub": "^4.1.0",
     "kleur": "^4.1.5",
-    "node-fetch": "^2.6.11",
+    "node-fetch": "^2.6.12",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
