@@ -11,44 +11,40 @@ The npm library for makes easy to run casper node for test purpose.
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
 <!-- toc -->
-
-- [casper-node-launcher-js](#casper-node-launcher-js)
-- [Usage](#usage)
-- [Commands](#commands)
+* [casper-node-launcher-js](#casper-node-launcher-js)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g casper-node-launcher-js
 $ casper-node-launcher-js COMMAND
 running command...
 $ casper-node-launcher-js (--version)
-casper-node-launcher-js/0.0.2 linux-x64 node-v16.15.1
+casper-node-launcher-js/1.0.0 linux-x64 node-v16.15.1
 $ casper-node-launcher-js --help [COMMAND]
 USAGE
   $ casper-node-launcher-js COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`casper-node-launcher-js help [COMMANDS]`](#casper-node-launcher-js-help-commands)
-- [`casper-node-launcher-js plugins`](#casper-node-launcher-js-plugins)
-- [`casper-node-launcher-js plugins:install PLUGIN...`](#casper-node-launcher-js-pluginsinstall-plugin)
-- [`casper-node-launcher-js plugins:inspect PLUGIN...`](#casper-node-launcher-js-pluginsinspect-plugin)
-- [`casper-node-launcher-js plugins:install PLUGIN...`](#casper-node-launcher-js-pluginsinstall-plugin-1)
-- [`casper-node-launcher-js plugins:link PLUGIN`](#casper-node-launcher-js-pluginslink-plugin)
-- [`casper-node-launcher-js plugins:uninstall PLUGIN...`](#casper-node-launcher-js-pluginsuninstall-plugin)
-- [`casper-node-launcher-js plugins:uninstall PLUGIN...`](#casper-node-launcher-js-pluginsuninstall-plugin-1)
-- [`casper-node-launcher-js plugins:uninstall PLUGIN...`](#casper-node-launcher-js-pluginsuninstall-plugin-2)
-- [`casper-node-launcher-js plugins update`](#casper-node-launcher-js-plugins-update)
+* [`casper-node-launcher-js help [COMMANDS]`](#casper-node-launcher-js-help-commands)
+* [`casper-node-launcher-js plugins`](#casper-node-launcher-js-plugins)
+* [`casper-node-launcher-js plugins:install PLUGIN...`](#casper-node-launcher-js-pluginsinstall-plugin)
+* [`casper-node-launcher-js plugins:inspect PLUGIN...`](#casper-node-launcher-js-pluginsinspect-plugin)
+* [`casper-node-launcher-js plugins:install PLUGIN...`](#casper-node-launcher-js-pluginsinstall-plugin-1)
+* [`casper-node-launcher-js plugins:link PLUGIN`](#casper-node-launcher-js-pluginslink-plugin)
+* [`casper-node-launcher-js plugins:uninstall PLUGIN...`](#casper-node-launcher-js-pluginsuninstall-plugin)
+* [`casper-node-launcher-js plugins:uninstall PLUGIN...`](#casper-node-launcher-js-pluginsuninstall-plugin-1)
+* [`casper-node-launcher-js plugins:uninstall PLUGIN...`](#casper-node-launcher-js-pluginsuninstall-plugin-2)
+* [`casper-node-launcher-js plugins update`](#casper-node-launcher-js-plugins-update)
 
 ## `casper-node-launcher-js help [COMMANDS]`
 
@@ -68,7 +64,7 @@ DESCRIPTION
   Display help for casper-node-launcher-js.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.9/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.10/src/commands/help.ts)_
 
 ## `casper-node-launcher-js plugins`
 
@@ -88,7 +84,7 @@ EXAMPLES
   $ casper-node-launcher-js plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.4/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.7/src/commands/plugins/index.ts)_
 
 ## `casper-node-launcher-js plugins:install PLUGIN...`
 
@@ -121,7 +117,7 @@ ALIASES
   $ casper-node-launcher-js plugins add
 
 EXAMPLES
-  $ casper-node-launcher-js plugins:install myplugin
+  $ casper-node-launcher-js plugins:install myplugin 
 
   $ casper-node-launcher-js plugins:install https://github.com/someuser/someplugin
 
@@ -184,7 +180,7 @@ ALIASES
   $ casper-node-launcher-js plugins add
 
 EXAMPLES
-  $ casper-node-launcher-js plugins:install myplugin
+  $ casper-node-launcher-js plugins:install myplugin 
 
   $ casper-node-launcher-js plugins:install https://github.com/someuser/someplugin
 
@@ -302,5 +298,4 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
-
 <!-- commandsstop -->
