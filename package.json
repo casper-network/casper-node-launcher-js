@@ -1,10 +1,10 @@
 {
   "name": "casper-node-launcher-js",
-  "version": "0.0.2",
-  "description": "CLI for run single casper node for test purpose",
-  "author": "gyroflaw",
+  "version": "0.0.1",
+  "description": "CLI makes easy to run single casper node for test purpose",
+  "author": "Ryo Kanazawa <ryo@casperlabs.io>",
   "bin": {
-    "casper-node-launcher": "./bin/run"
+    "casper-node-launcher-js": "./bin/run"
   },
   "homepage": "https://github.com/casper-network/casper-node-launcher-js",
   "license": "MIT",
@@ -70,7 +70,10 @@
   },
   "bugs": "https://github.com/casper-network/casper-node-launcher-js/issues",
   "keywords": [
-    "oclif"
+    "oclif",
+    "casper",
+    "casper node",
+    "NCTL"
   ],
   "types": "dist/index.d.ts"
 }

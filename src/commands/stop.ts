@@ -7,7 +7,7 @@ import { Args, Command } from "@oclif/core";
 import { NETWORK_NAMES, NODE_VERSIONS, WORK_DIR } from "../config";
 
 export default class Stop extends Command {
-  static description = "Generate config files";
+  static description = "Stop running node in background.";
 
   static args = {
     branch: Args.string({
