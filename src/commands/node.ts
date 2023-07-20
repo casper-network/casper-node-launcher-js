@@ -14,6 +14,7 @@ import {
   NODE_VERSIONS,
   WORK_DIR,
 } from "../config";
+import { checkVersion } from "../utils/check-version";
 
 export default class Node extends Command {
   static description = "Starts a single Casper node.";
@@ -38,10 +39,15 @@ export default class Node extends Command {
   static flags = {
     // can pass either --force or -f
     daemon: Flags.boolean({ char: "d" }),
+    "force-download": Flags.boolean({ char: "f" }),
   };
 
   async run(): Promise<void> {
     const { args, flags } = await this.parse(Node);
+
+    await checkVersion(args.branch, {
+      forceDownloadTags: flags["force-download"],
+    });
 
     ux.action.start("Donwloading assets");
     await this.config.runCommand("download", [args.branch]);
