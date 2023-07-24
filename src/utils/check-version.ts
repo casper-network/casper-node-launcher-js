@@ -9,10 +9,7 @@ interface Props {
   forceDownloadTags?: boolean;
 }
 
-export const checkVersion = async (
-  version: string,
-  props?: Props
-): Promise<boolean> => {
+export const getVersions = async (props?: Props): Promise<string[]> => {
   const { forceDownloadTags = false } = props || {};
   const workDir = path.resolve(__dirname, "../..", WORK_DIR);
   const versionFilePath = path.resolve(workDir, "versions.json");
@@ -26,6 +23,20 @@ export const checkVersion = async (
   const { versions }: { fetchedAt: number; versions: string[] } = JSON.parse(
     fs.readFileSync(versionFilePath, { encoding: "utf-8" })
   );
+  return versions;
+};
 
+export const checkVersion = async (
+  version: string,
+  props?: Props
+): Promise<boolean> => {
+  if (version === "dev") return true;
+
+  const versions = await getVersions(props);
   return versions.includes(version);
+};
+
+export const fetchLatestVersion = async (props?: Props): Promise<string> => {
+  const versions = await getVersions(props);
+  return versions[0];
 };

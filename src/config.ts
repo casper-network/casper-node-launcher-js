@@ -7,41 +7,6 @@ export const chainSpecTemplate = `https://raw.githubusercontent.com/casper-netwo
 export const configFile = `https://raw.githubusercontent.com/casper-network/casper-node/{GH_BRANCH}/resources/local/config.toml`;
 export const githubTag = `https://api.github.com/repos/casper-network/casper-node/tags`;
 
-export const NODE_VERSIONS = [
-  "v0.9.0",
-  "v0.9.3",
-  "v0.9.3.1",
-  "v0.9.4",
-  "v1.0.0",
-  "v1.0.1",
-  "v1.1.0",
-  "v1.1.1",
-  "v1.1.2",
-  "v1.2.0",
-  "v1.2.1",
-  "v1.3.0",
-  "v1.3.1",
-  "v1.3.2",
-  "v1.3.3",
-  "v1.3.4",
-  "v1.4.0",
-  "v1.4.1",
-  "v1.4.2",
-  "v1.4.3",
-  "v1.4.4",
-  "v1.4.5",
-  "v1.4.6",
-  "v1.4.8",
-  "v1.4.9",
-  "v1.4.13",
-  "v1.4.14",
-  "v1.4.15",
-  "v1.4.15-alt",
-  "v1.5.0-rc.1",
-  "v1.5.1",
-  "dev",
-];
-
 export const FUNDED_KEYS = [
   {
     private: "MC4CAQAwBQYDK2VwBCIEII8ULlk1CJ12ZQ+bScjBt/IxMAZNggClWqK56D1/7CbI",
