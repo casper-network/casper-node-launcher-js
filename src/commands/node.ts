@@ -115,6 +115,7 @@ export default class Node extends Command {
     });
 
     let rpcStarted = false;
+    let speculativeStarted = false;
     let restStarted = false;
     let eventStreamStarted = false;
 
@@ -150,6 +151,18 @@ export default class Node extends Command {
         eventStreamStarted = true;
         console.info(
           kleur.green(`Started event stream server at http://127.0.0.1:9999`)
+        );
+      }
+
+      if (
+        data.includes("started speculative execution server") &&
+        !speculativeStarted
+      ) {
+        speculativeStarted = true;
+        console.info(
+          kleur.green(
+            `Started speculative execution server at http://127.0.0.1:7778`
+          )
         );
       }
     });

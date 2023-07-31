@@ -1,42 +1,42 @@
+/* eslint-disable camelcase */
 import * as fs from "node:fs";
 import * as path from "node:path";
+import axios from "axios";
 
-import FetchVersion from "../commands/fetch-versions";
+import { WORK_DIR, githubTag } from "../config";
 
-import { WORK_DIR } from "../config";
-
-interface Props {
-  forceDownloadTags?: boolean;
+export interface Tag {
+  name: string;
+  zipball_url: string;
+  tarball_url: string;
+  commit: Commit;
+  node_id: string;
 }
 
-export const getVersions = async (props?: Props): Promise<string[]> => {
-  const { forceDownloadTags = false } = props || {};
-  const workDir = path.resolve(__dirname, "../..", WORK_DIR);
-  const versionFilePath = path.resolve(workDir, "versions.json");
+export interface Commit {
+  sha: string;
+  url: string;
+}
 
-  // Save file tags if version file doesn't exist
-  if (!fs.existsSync(versionFilePath) || forceDownloadTags) {
-    await FetchVersion.run();
-  }
+export const getVersions = async (): Promise<string[]> => {
+  const { data } = await axios.get<Tag[]>(githubTag);
+  const versions = data.map((tag) => tag.name);
 
-  // load version file
-  const { versions }: { fetchedAt: number; versions: string[] } = JSON.parse(
-    fs.readFileSync(versionFilePath, { encoding: "utf-8" })
-  );
   return versions;
 };
 
-export const checkVersion = async (
-  version: string,
-  props?: Props
-): Promise<boolean> => {
+export const checkVersion = async (version: string): Promise<boolean> => {
   if (version === "dev") return true;
+  const workDir = path.resolve(__dirname, "../..", WORK_DIR);
 
-  const versions = await getVersions(props);
+  // Return true for downloaded version
+  if (fs.existsSync(path.resolve(workDir, version))) return true;
+
+  const versions = await getVersions();
   return versions.includes(version);
 };
 
-export const fetchLatestVersion = async (props?: Props): Promise<string> => {
-  const versions = await getVersions(props);
+export const fetchLatestVersion = async (): Promise<string> => {
+  const versions = await getVersions();
   return versions[0];
 };
