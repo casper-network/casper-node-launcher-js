@@ -10,26 +10,33 @@ import {
   CONFIG_DIR,
   chainSpecTemplate,
   configFile,
-  NODE_VERSIONS,
 } from "../config";
+import { checkVersion, fetchLatestVersion } from "../utils/check-version";
 
 export default class Download extends Command {
   static description = "Download required assets for running casper node.";
 
   static args = {
-    branch: Args.string({
-      name: "branch", // name of arg to show in help and reference with args[name]
+    version: Args.string({
+      name: "version", // name of arg to show in help and reference with args[name]
       required: false, // make the arg required with `required: true`
-      description: "The branch to use", // help description
-      default: NODE_VERSIONS.at(-2)!, // use the latest release version
-      options: NODE_VERSIONS, // only allow input to be from a discrete set
+      description: "The version to use", // help description
     }),
   };
 
   async run(): Promise<void> {
     const { args } = await this.parse(Download);
 
-    const workDir = path.resolve(__dirname, "../..", WORK_DIR, args.branch);
+    // checks the version
+    const version = args.version || (await fetchLatestVersion());
+    const isValidVersion = await checkVersion(version);
+
+    if (!isValidVersion) {
+      this.logToStderr(`Not found version: ${version}`);
+      this.exit(-1);
+    }
+
+    const workDir = path.resolve(__dirname, "../..", WORK_DIR, version);
     const binDir = path.resolve(workDir, BIN_DIR);
     const configDir = path.resolve(workDir, CONFIG_DIR);
 
@@ -43,7 +50,7 @@ export default class Download extends Command {
 
     if (!fs.existsSync(binaryPath)) {
       await download(
-        nodeUrl.replace("{GH_BRANCH}", args.branch),
+        nodeUrl.replace("{GH_BRANCH}", version),
         binaryPath,
         console.error
       );
@@ -57,7 +64,7 @@ export default class Download extends Command {
 
     if (!fs.existsSync(specPath)) {
       await download(
-        chainSpecTemplate.replace("{GH_BRANCH}", args.branch),
+        chainSpecTemplate.replace("{GH_BRANCH}", version),
         specPath,
         console.error
       );
@@ -65,7 +72,7 @@ export default class Download extends Command {
 
     if (!fs.existsSync(configPath)) {
       await download(
-        configFile.replace("{GH_BRANCH}", args.branch),
+        configFile.replace("{GH_BRANCH}", version),
         configPath,
         console.error
       );

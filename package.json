@@ -21,6 +21,7 @@
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.4.7",
+    "axios": "^1.4.0",
     "chokidar": "^3.5.3",
     "envsub": "^4.1.0",
     "kleur": "^4.1.5",

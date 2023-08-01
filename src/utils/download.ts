@@ -14,7 +14,7 @@ export default async function download(
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("Unable to access");
+    throw new Error(`Unable to access to ${url}`);
   }
 
   return new Promise<void>((resolve) => {

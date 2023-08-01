@@ -11,20 +11,18 @@ import {
   CONFIG_DIR,
   FUNDED_KEYS,
   NETWORK_NAMES,
-  NODE_VERSIONS,
   WORK_DIR,
 } from "../config";
+import { checkVersion, fetchLatestVersion } from "../utils/check-version";
 
 export default class Node extends Command {
   static description = "Starts a single Casper node.";
 
   static args = {
-    branch: Args.string({
-      name: "branch", // name of arg to show in help and reference with args[name]
+    version: Args.string({
+      name: "version", // name of arg to show in help and reference with args[name]
       required: false, // make the arg required with `required: true`
-      description: "The branch to use", // help description
-      default: NODE_VERSIONS.at(-2)!, // use the latest release version
-      options: NODE_VERSIONS, // only allow input to be from a discrete set
+      description: "The version to use", // help description
     }),
     networkName: Args.string({
       name: "networkName", // name of arg to show in help and reference with args[name]
@@ -38,20 +36,30 @@ export default class Node extends Command {
   static flags = {
     // can pass either --force or -f
     daemon: Flags.boolean({ char: "d" }),
+    "force-download": Flags.boolean({ char: "f" }),
   };
 
   async run(): Promise<void> {
     const { args, flags } = await this.parse(Node);
 
+    // checks the version
+    const version = args.version || (await fetchLatestVersion());
+    const isValidVersion = await checkVersion(version);
+
+    if (!isValidVersion) {
+      this.logToStderr(`Not found version: ${version}`);
+      this.exit(-1);
+    }
+
     ux.action.start("Donwloading assets");
-    await this.config.runCommand("download", [args.branch]);
+    await this.config.runCommand("download", [version]);
     ux.action.stop();
 
     ux.action.start("Generating config files to run node");
-    await this.config.runCommand("config", [args.branch, args.networkName]);
+    await this.config.runCommand("config", [version, args.networkName]);
     ux.action.stop();
 
-    const workDir = path.resolve(__dirname, "../..", WORK_DIR, args.branch);
+    const workDir = path.resolve(__dirname, "../..", WORK_DIR, version);
     const binDir = path.resolve(workDir, BIN_DIR);
     const configDir = path.resolve(workDir, CONFIG_DIR);
     const binaryPath = path.resolve(binDir, "casper-node");
@@ -107,6 +115,7 @@ export default class Node extends Command {
     });
 
     let rpcStarted = false;
+    let speculativeStarted = false;
     let restStarted = false;
     let eventStreamStarted = false;
 
@@ -142,6 +151,18 @@ export default class Node extends Command {
         eventStreamStarted = true;
         console.info(
           kleur.green(`Started event stream server at http://127.0.0.1:9999`)
+        );
+      }
+
+      if (
+        data.includes("started speculative execution server") &&
+        !speculativeStarted
+      ) {
+        speculativeStarted = true;
+        console.info(
+          kleur.green(
+            `Started speculative execution server at http://127.0.0.1:7778`
+          )
         );
       }
     });

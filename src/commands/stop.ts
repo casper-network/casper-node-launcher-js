@@ -2,29 +2,12 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import shell from "shelljs";
-import { Args, Command } from "@oclif/core";
+import { Command } from "@oclif/core";
 
-import { NETWORK_NAMES, NODE_VERSIONS, WORK_DIR } from "../config";
+import { WORK_DIR } from "../config";
 
 export default class Stop extends Command {
   static description = "Stop running node in background.";
-
-  static args = {
-    branch: Args.string({
-      name: "branch", // name of arg to show in help and reference with args[name]
-      required: false, // make the arg required with `required: true`
-      description: "The branch to use", // help description
-      default: NODE_VERSIONS.at(-2)!, // use the latest release version
-      options: NODE_VERSIONS, // only allow input to be from a discrete set
-    }),
-    networkName: Args.string({
-      name: "networkName", // name of arg to show in help and reference with args[name]
-      required: false, // make the arg required with `required: true`
-      description: "The default network name", // help description
-      default: NETWORK_NAMES.at(-2)!, // use the latest release version
-      options: NETWORK_NAMES, // only allow input to be from a discrete set
-    }),
-  };
 
   async run(): Promise<void> {
     const { args } = await this.parse(Stop);
