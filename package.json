@@ -1,6 +1,6 @@
 {
   "name": "casper-node-launcher-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI makes easy to run single casper node for test purpose",
   "author": "Ryo Kanazawa <ryo@casperlabs.io>",
   "bin": {
