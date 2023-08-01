@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.0.2] - 2023-08-01
+
+### Changed
+
+- The available versions are fetched from GitHub directly. ([#29](https://github.com/casper-network/casper-node-launcher-js/pull/29))
+
 ## [0.0.1] - 2023-7-12
 
 Initial version of `casper-node-launcher-js`.
@@ -23,4 +29,5 @@ Initial version of `casper-node-launcher-js`.
 
 - Started to use CHANGELOG.
 
-[0.0.1]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.1...main
+[0.0.2]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.2...main
+[0.0.1]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.1...0.0.2
