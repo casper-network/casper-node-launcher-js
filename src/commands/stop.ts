@@ -10,10 +10,13 @@ export default class Stop extends Command {
   static description = "Stop running node in background.";
 
   async run(): Promise<void> {
-    const { args } = await this.parse(Stop);
+    const workDir = path.resolve(__dirname, "../..", WORK_DIR);
+    const pidFilePath = path.resolve(workDir, ".pid");
 
-    const workDir = path.resolve(__dirname, "../..", WORK_DIR, args.branch);
-    const pidFilePath = path.resolve(workDir, "../.pid");
+    if (!fs.existsSync(pidFilePath)) {
+      this.error("No running node found", { exit: -1 });
+    }
+
     const pid = fs.readFileSync(pidFilePath, {
       encoding: "utf8",
     });
