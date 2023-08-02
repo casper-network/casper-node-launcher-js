@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.0.3] - 2023-08-02
+
 ### Fixed
 
 - `stop` command arg parse issue. ([#38](https://github.com/casper-network/casper-node-launcher-js/pull/38))
@@ -33,5 +35,6 @@ Initial version of `casper-node-launcher-js`.
 
 - Started to use CHANGELOG.
 
-[0.0.2]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.2...main
+[0.0.3]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.3...main
+[0.0.2]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.2...0.0.2
 [0.0.1]: https://github.com/casper-network/casper-node-launcher-js/compare/0.0.1...0.0.2
