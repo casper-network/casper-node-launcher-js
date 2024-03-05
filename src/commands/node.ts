@@ -1,10 +1,11 @@
+import {
+  Args, Command, Flags, ux
+} from "@oclif/core";
+import { watch } from "chokidar";
+import kleur from "kleur";
+import { execFile, spawn } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { spawn, execFile } from "node:child_process";
-
-import { Args, Command, Flags, ux } from "@oclif/core";
-import chokidar from "chokidar";
-import kleur from "kleur";
 
 import {
   BIN_DIR,
@@ -16,22 +17,22 @@ import {
 import { checkVersion, fetchLatestVersion } from "../utils/check-version";
 
 export default class Node extends Command {
-  static description = "Starts a single Casper node.";
-
   static args = {
+    networkName: Args.string({
+      default: NETWORK_NAMES.at(-2)!, // use the latest release version
+      description: "The default network name", // help description
+      name: "networkName", // name of arg to show in help and reference with args[name]
+      options: NETWORK_NAMES, // only allow input to be from a discrete set
+      required: false, // make the arg required with `required: true`
+    }),
     version: Args.string({
+      description: "The version to use", // help description
       name: "version", // name of arg to show in help and reference with args[name]
       required: false, // make the arg required with `required: true`
-      description: "The version to use", // help description
-    }),
-    networkName: Args.string({
-      name: "networkName", // name of arg to show in help and reference with args[name]
-      required: false, // make the arg required with `required: true`
-      description: "The default network name", // help description
-      default: NETWORK_NAMES.at(-2)!, // use the latest release version
-      options: NETWORK_NAMES, // only allow input to be from a discrete set
     }),
   };
+
+  static description = "Starts a single Casper node.";
 
   static flags = {
     // can pass either --force or -f
@@ -56,7 +57,7 @@ export default class Node extends Command {
     ux.action.stop();
 
     ux.action.start("Generating config files to run node");
-    await this.config.runCommand("config", [version, args.networkName]);
+    await this.config.runCommand("config", [args.networkName, version]);
     ux.action.stop();
 
     const workDir = path.resolve(__dirname, "../..", WORK_DIR, version);
@@ -69,13 +70,13 @@ export default class Node extends Command {
     // Remove old db if exists
     if (fs.existsSync(dbPath)) {
       this.debug("Removing old db");
-      fs.rmSync(dbPath, { recursive: true, force: true });
+      fs.rmSync(dbPath, { force: true, recursive: true });
     }
 
     // log the node version
 
-    const logNodeVersion = async (binaryPath: string) => {
-      return new Promise<void>((resolve, reject) => {
+    const logNodeVersion = async (binaryPath: string) =>
+      new Promise<void>((resolve, reject) => {
         execFile(binaryPath, ["--version"], (error, stdout) => {
           if (error) {
             return reject(error);
@@ -86,7 +87,6 @@ export default class Node extends Command {
           return resolve();
         });
       });
-    };
 
     await logNodeVersion(binaryPath);
 
@@ -119,7 +119,7 @@ export default class Node extends Command {
     let restStarted = false;
     let eventStreamStarted = false;
 
-    const watcher = chokidar.watch(workDir + "/stdout.log", {
+    const watcher = watch(workDir + "/stdout.log", {
       persistent: true,
     });
 
@@ -130,9 +130,9 @@ export default class Node extends Command {
       // started REST server; address=0.0.0.0:8888
       // started event stream server; address=0.0.0.0:9999
       if (
-        (data.includes("started JSON RPC server") ||
-          data.includes("started JSON-RPC server")) &&
-        !rpcStarted
+        (data.includes("started JSON RPC server")
+          || data.includes("started JSON-RPC server"))
+        && !rpcStarted
       ) {
         rpcStarted = true;
         console.info(
@@ -155,8 +155,8 @@ export default class Node extends Command {
       }
 
       if (
-        data.includes("started speculative execution server") &&
-        !speculativeStarted
+        data.includes("started speculative execution server")
+        && !speculativeStarted
       ) {
         speculativeStarted = true;
         console.info(
@@ -191,7 +191,7 @@ export default class Node extends Command {
       let timer: NodeJS.Timer;
       const exitNode = () => {
         if (rpcStarted && restStarted && eventStreamStarted) {
-          clearTimeout(timer);
+          clearTimeout(timer as NodeJS.Timeout);
           process.exit(0);
         }
       };
