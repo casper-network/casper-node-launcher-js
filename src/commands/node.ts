@@ -57,7 +57,7 @@ export default class Node extends Command {
     ux.action.stop();
 
     ux.action.start("Generating config files to run node");
-    await this.config.runCommand("config", [version, args.networkName]);
+    await this.config.runCommand("config", [args.networkName, version]);
     ux.action.stop();
 
     const workDir = path.resolve(__dirname, "../..", WORK_DIR, version);
