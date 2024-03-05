@@ -57,7 +57,7 @@
     "topicSeparator": " "
   },
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "build": "npm run clean && tsc",
     "lint": "eslint . --ext .ts --config .eslintrc",
     "postpack": "rm -f oclif.manifest.json",
