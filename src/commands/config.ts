@@ -96,6 +96,6 @@ export default class Config extends Command {
     shell.sed("-i", "enabled = true", "enabled = false", configFile);
 
     // Copy accounts
-    shell.cp("", assetsPath, configDir);
+    shell.cp(assetsPath, configDir);
   }
 }
