@@ -1,28 +1,28 @@
+import { Args, Command } from "@oclif/core";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Args, Command } from "@oclif/core";
 
-import download from "../utils/download";
 import {
-  WORK_DIR,
   BIN_DIR,
-  nodeUrl,
   CONFIG_DIR,
+  WORK_DIR,
   chainSpecTemplate,
   configFile,
+  nodeUrl,
 } from "../config";
 import { checkVersion, fetchLatestVersion } from "../utils/check-version";
+import download from "../utils/download";
 
 export default class Download extends Command {
-  static description = "Download required assets for running casper node.";
-
   static args = {
     version: Args.string({
+      description: "The version to use", // help description
       name: "version", // name of arg to show in help and reference with args[name]
       required: false, // make the arg required with `required: true`
-      description: "The version to use", // help description
     }),
   };
+
+  static description = "Download required assets for running casper node.";
 
   async run(): Promise<void> {
     const { args } = await this.parse(Download);

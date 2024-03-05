@@ -1,16 +1,15 @@
-/* eslint-disable camelcase */
+import axios from "axios";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import axios from "axios";
 
 import { WORK_DIR, githubTag } from "../config";
 
 export interface Tag {
-  name: string;
-  zipball_url: string;
-  tarball_url: string;
   commit: Commit;
+  name: string;
   node_id: string;
+  tarball_url: string;
+  zipball_url: string;
 }
 
 export interface Commit {
