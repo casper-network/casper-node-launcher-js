@@ -21,7 +21,10 @@ export const getVersions = async (): Promise<string[]> => {
   const { data } = await axios.get<Tag[]>(githubTag);
   const versions = data.map((tag) => tag.name);
 
-  return versions;
+  // Filter out versions that start with 'v2'
+  const filteredVersions = versions.filter((version) => !version.startsWith('v2'));
+
+  return filteredVersions;
 };
 
 export const checkVersion = async (version: string): Promise<boolean> => {
