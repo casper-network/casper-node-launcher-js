@@ -111,7 +111,8 @@ export default class Node extends Command {
 
     casperNode.on("close", (code) => {
       console.error(kleur.red(`[Casper node]: Exited ${code}`));
-      process.exit(code ?? undefined);
+
+      throw new Error(`Exit with code: ${code ?? 0}`);
     });
 
     let rpcStarted = false;
@@ -192,7 +193,7 @@ export default class Node extends Command {
       const exitNode = () => {
         if (rpcStarted && restStarted && eventStreamStarted) {
           clearTimeout(timer as NodeJS.Timeout);
-          process.exit(0);
+          throw new Error("Exiting due to some error.");
         }
       };
 

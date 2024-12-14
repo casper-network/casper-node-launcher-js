@@ -11,5 +11,6 @@
     "unicorn/no-process-exit": "off",
     "unicorn/prefer-module": "off",
     "unicorn/no-array-for-each": "off"
-  }
+  },
+  "ignorePatterns": ["/dist"]
 }
