@@ -8,7 +8,8 @@ The npm library makes easy to run casper node for test purpose.
 [![Version](https://img.shields.io/npm/v/casper-node-launcher-js.svg)](https://npmjs.org/package/casper-node-launcher-js)
 [![License](https://img.shields.io/npm/l/casper-node-launcher-js.svg)](https://github.com/casper-network/casper-node-launcher/blob/main/package.json)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/) 
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/casper-network/casper-node-launcher-js)
 
 ## Usage
 
