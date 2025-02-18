@@ -3,7 +3,7 @@ import {
 } from "@oclif/core";
 import { watch } from "chokidar";
 import kleur from "kleur";
-import { execFile, spawn } from "node:child_process";
+import { execFile, execSync, spawn } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
@@ -63,6 +63,7 @@ export default class Node extends Command {
     const workDir = path.resolve(__dirname, "../..", WORK_DIR, version);
     const binDir = path.resolve(workDir, BIN_DIR);
     const configDir = path.resolve(workDir, CONFIG_DIR);
+    execSync(`ls -la ${path.resolve(binDir, "casper-node")}`);
     const binaryPath = path.resolve(binDir, "casper-node");
     const configPath = path.resolve(configDir, "config.toml");
     const dbPath = path.resolve(configDir, "..", "node-storage");
