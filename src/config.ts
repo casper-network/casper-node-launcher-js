@@ -2,7 +2,7 @@ export const WORK_DIR = "casper-node";
 export const BIN_DIR = `bin`;
 export const CONFIG_DIR = `config/1_0_0`;
 
-export const nodeUrl = `https://s3.us-east-2.amazonaws.com/nctl.casperlabs.io/{GH_BRANCH}/casper-node`;
+export const nodeUrl = `https://github.com/casper-network/casper-node/releases/download/{GH_BRANCH}/bin.tar.gz`;
 export const chainSpecTemplate = `https://raw.githubusercontent.com/casper-network/casper-node/{GH_BRANCH}/resources/local/chainspec.toml.in`;
 export const configFile = `https://raw.githubusercontent.com/casper-network/casper-node/{GH_BRANCH}/resources/local/config.toml`;
 export const githubTag = `https://api.github.com/repos/casper-network/casper-node/tags`;

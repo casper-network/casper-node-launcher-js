@@ -1,4 +1,5 @@
 import { Args, Command } from "@oclif/core";
+import { execSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
@@ -47,17 +48,24 @@ export default class Download extends Command {
     }
 
     const binaryPath = path.resolve(binDir, "casper-node");
+    const extractPath = `${binaryPath}/casper-node`;
+    const tarballPath = `${binaryPath}/bin.tar.gz`;
 
     if (!fs.existsSync(binaryPath)) {
-      await download(
-        nodeUrl.replace("{GH_BRANCH}", version),
-        binaryPath,
-        console.error
-      );
-    }
+      console.log(`Downloading Casper Node from ${nodeUrl.replace("{GH_BRANCH}", version)}`);
 
-    // https://ss64.com/bash/chmod.html
-    fs.chmodSync(binaryPath, "751");
+      await download(nodeUrl.replace("{GH_BRANCH}", version), tarballPath, console.error);
+
+      console.log("Extracting...");
+      execSync(`tar -xzf ${tarballPath} -C ${binaryPath}`);
+
+      console.log("Setting permissions...");
+      // https://ss64.com/bash/chmod.html
+      fs.chmodSync(extractPath, "751");
+
+      // Cleanup the tar.gz file after extraction
+      fs.unlinkSync(tarballPath);
+    }
 
     const specPath = path.resolve(configDir, "chainspec.toml.in");
     const configPath = path.resolve(configDir, "config.toml");
