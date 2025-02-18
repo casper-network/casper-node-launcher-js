@@ -60,18 +60,18 @@ export default class Download extends Command {
       execSync(`tar -xzf ${tarballPath} -C ${binaryPath}`);
 
       console.log("Checking extracted files...");
-      console.log(execSync(`ls -la ${binaryPath}`));
+      console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
 
       console.log("Setting execution permissions...");
       try {
-        console.log(execSync(`chmod +x ${binaryPath}/casper-node`));
+        console.log(execSync(`chmod +x ${binaryPath}/casper-node`).toString('utf8'));
       } catch {
         console.log("Failed to chmod normally, trying sudo...");
-        console.log(execSync(`sudo chmod +x ${binaryPath}/casper-node`));
+        console.log(execSync(`sudo chmod +x ${binaryPath}/casper-node`).toString('utf8'));
       }
 
       console.log("Verifying permissions...");
-      console.log(execSync(`ls -la ${binaryPath}`));
+      console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
 
       // Cleanup
       fs.unlinkSync(tarballPath);
