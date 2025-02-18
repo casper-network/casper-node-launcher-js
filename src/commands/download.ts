@@ -52,25 +52,27 @@ export default class Download extends Command {
 
     if (!fs.existsSync(binaryPath)) {
       fs.mkdirSync(binaryPath, { recursive: true });
-      console.log(`Downloading Casper Node from ${nodeUrl.replace("{GH_BRANCH}", version)}`);
-
-      await download(nodeUrl.replace("{GH_BRANCH}", version), tarballPath, console.error);
-
-      console.log("Extracting...");
-      execSync(`tar -xzf ${tarballPath} -C ${binaryPath}`);
-
-      console.log("Checking extracted files...");
-      console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
-
-      console.log("Setting execution permissions...");
-      console.log(execSync(`chmod -R 751 ${binaryPath}`).toString('utf8'));
-
-      console.log("Verifying permissions...");
-      console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
-
-      // Cleanup
-      fs.unlinkSync(tarballPath);
     }
+
+    console.log(`Downloading Casper Node from ${nodeUrl.replace("{GH_BRANCH}", version)}`);
+
+    await download(nodeUrl.replace("{GH_BRANCH}", version), tarballPath, console.error);
+
+    console.log("Extracting...");
+    execSync(`tar -xzf ${tarballPath} -C ${binaryPath}`);
+
+    console.log("Checking extracted files...");
+    console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
+
+    console.log("Setting execution permissions...");
+    console.log(execSync(`chmod -R 751 ${binaryPath}`).toString('utf8'));
+
+    console.log("Verifying permissions...");
+    console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
+
+    // Cleanup
+    fs.unlinkSync(tarballPath);
+
 
     const specPath = path.resolve(configDir, "chainspec.toml.in");
     const configPath = path.resolve(configDir, "config.toml");
