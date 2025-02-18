@@ -63,7 +63,7 @@ export default class Node extends Command {
     const workDir = path.resolve(__dirname, "../..", WORK_DIR, version);
     const binDir = path.resolve(workDir, BIN_DIR);
     const configDir = path.resolve(workDir, CONFIG_DIR);
-    execSync(`ls -la ${path.resolve(binDir, "casper-node")}`);
+    console.log(execSync(`ls -la ${path.resolve(binDir, "casper-node")}`));
     const binaryPath = path.resolve(binDir, "casper-node");
     const configPath = path.resolve(configDir, "config.toml");
     const dbPath = path.resolve(configDir, "..", "node-storage");
