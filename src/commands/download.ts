@@ -47,7 +47,7 @@ export default class Download extends Command {
       fs.mkdirSync(configDir, { recursive: true });
     }
 
-    const binaryPath = path.resolve(binDir, "casper-node");
+    const binaryPath = path.resolve(binDir);
     const tarballPath = `${binaryPath}/bin.tar.gz`;
 
     if (!fs.existsSync(binaryPath)) {
@@ -63,13 +63,7 @@ export default class Download extends Command {
       console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
 
       console.log("Setting execution permissions...");
-      console.log(execSync(`chmod -R 755 ${binaryPath}`).toString('utf8'));
-      try {
-        console.log(execSync(`chmod 751 ${binaryPath}/casper-node`).toString('utf8'));
-      } catch {
-        console.log("Failed to chmod normally, trying sudo...");
-        console.log(execSync(`sudo chmod 751 ${binaryPath}/casper-node`).toString('utf8'));
-      }
+      console.log(execSync(`chmod -R 751 ${binaryPath}`).toString('utf8'));
 
       console.log("Verifying permissions...");
       console.log(execSync(`ls -la ${binaryPath}`).toString('utf8'));
