@@ -48,6 +48,7 @@ export default class Download extends Command {
     }
 
     const binaryPath = path.resolve(binDir, "casper-node");
+    const extractPath = `${binaryPath}/casper-node`;
     const tarballPath = `${binaryPath}/bin.tar.gz`;
 
     if (!fs.existsSync(binaryPath)) {
@@ -59,8 +60,11 @@ export default class Download extends Command {
       console.log("Extracting...");
       execSync(`tar -xzf ${tarballPath} -C ${binaryPath}`);
 
-      console.log("Setting permissions...");
-      execSync(`chmod -R 751 ${binaryPath}`);
+      console.log("Checking extracted files...");
+      execSync(`ls -la ${binaryPath}`);
+
+      console.log("Setting execution permissions...");
+      execSync(`find ${binaryPath} -type f -name "casper-node" -exec chmod +x {} \\;`);
 
       // Cleanup the tar.gz file after extraction
       fs.unlinkSync(tarballPath);
