@@ -1,16 +1,15 @@
-/* eslint-disable camelcase */
+import axios from "axios";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import axios from "axios";
 
 import { WORK_DIR, githubTag } from "../config";
 
 export interface Tag {
-  name: string;
-  zipball_url: string;
-  tarball_url: string;
   commit: Commit;
+  name: string;
   node_id: string;
+  tarball_url: string;
+  zipball_url: string;
 }
 
 export interface Commit {
@@ -22,7 +21,10 @@ export const getVersions = async (): Promise<string[]> => {
   const { data } = await axios.get<Tag[]>(githubTag);
   const versions = data.map((tag) => tag.name);
 
-  return versions;
+  // Filter out versions that start with 'v2'
+  const filteredVersions = versions.filter((version) => !version.startsWith('v2'));
+
+  return filteredVersions;
 };
 
 export const checkVersion = async (version: string): Promise<boolean> => {

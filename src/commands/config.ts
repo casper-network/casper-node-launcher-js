@@ -1,8 +1,7 @@
+import { Args, Command } from "@oclif/core";
 import * as fs from "node:fs";
 import * as path from "node:path";
-
-import shell from "shelljs";
-import { Args, Command } from "@oclif/core";
+import { cp, sed } from "shelljs";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import envsub from "envsub";
@@ -11,22 +10,22 @@ import { CONFIG_DIR, NETWORK_NAMES, WORK_DIR } from "../config";
 import { checkVersion, fetchLatestVersion } from "../utils/check-version";
 
 export default class Config extends Command {
-  static description = "Generate config files";
-
   static args = {
+    networkName: Args.string({
+      default: NETWORK_NAMES.at(-2)!,
+      description: "The default network name", // help description
+      name: "networkName", // name of arg to show in help and reference with args[name]
+      options: NETWORK_NAMES, // only allow input to be from a discrete set
+      required: false, // make the arg required with `required: true`
+    }),
     version: Args.string({
+      description: "The version to use", // help description
       name: "version", // name of arg to show in help and reference with args[name]
       required: false, // make the arg required with `required: true`
-      description: "The version to use", // help description
-    }),
-    networkName: Args.string({
-      name: "networkName", // name of arg to show in help and reference with args[name]
-      required: false, // make the arg required with `required: true`
-      description: "The default network name", // help description
-      default: NETWORK_NAMES.at(-2)!,
-      options: NETWORK_NAMES, // only allow input to be from a discrete set
     }),
   };
+
+  static description = "Generate config files";
 
   async run(): Promise<void> {
     const { args } = await this.parse(Config);
@@ -68,24 +67,24 @@ export default class Config extends Command {
       protect: false, // see --protect flag
       syntax: "default", // see --syntax flag
     };
-    await envsub({ templateFile, outputFile, options });
+    await envsub({ options, outputFile, templateFile });
 
     // overriding configuations
-    shell.sed(
+    sed(
       "-i",
       "max_ttl = '5minutes'",
       "max_ttl = '30minutes'",
       outputFile
     );
 
-    shell.sed(
+    sed(
       "-i",
       "name = 'casper-example'",
       `name = '${args.networkName}'`,
       outputFile
     );
 
-    shell.sed(
+    sed(
       "-i",
       "min_peers_for_initialization = 3",
       "min_peers_for_initialization = 0",
@@ -93,9 +92,9 @@ export default class Config extends Command {
     );
 
     // disable diagnostics port
-    shell.sed("-i", "enabled = true", "enabled = false", configFile);
+    sed("-i", "enabled = true", "enabled = false", configFile);
 
     // Copy accounts
-    shell.cp("", assetsPath, configDir);
+    cp(assetsPath, configDir);
   }
 }

@@ -1,8 +1,7 @@
+import { Command } from "@oclif/core";
 import * as fs from "node:fs";
 import * as path from "node:path";
-
-import shell from "shelljs";
-import { Command } from "@oclif/core";
+import { exec } from "shelljs";
 
 import { WORK_DIR } from "../config";
 
@@ -21,7 +20,7 @@ export default class Stop extends Command {
       encoding: "utf8",
     });
     this.log(`Killing process with pid: ${pid}`);
-    shell.exec(`kill ${pid}`);
+    exec(`kill ${pid}`);
 
     fs.rmSync(pidFilePath);
   }

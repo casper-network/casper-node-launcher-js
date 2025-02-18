@@ -1,28 +1,29 @@
+import { Args, Command } from "@oclif/core";
+import { execSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Args, Command } from "@oclif/core";
 
-import download from "../utils/download";
 import {
-  WORK_DIR,
   BIN_DIR,
-  nodeUrl,
   CONFIG_DIR,
+  WORK_DIR,
   chainSpecTemplate,
   configFile,
+  nodeUrl,
 } from "../config";
 import { checkVersion, fetchLatestVersion } from "../utils/check-version";
+import download from "../utils/download";
 
 export default class Download extends Command {
-  static description = "Download required assets for running casper node.";
-
   static args = {
     version: Args.string({
+      description: "The version to use", // help description
       name: "version", // name of arg to show in help and reference with args[name]
       required: false, // make the arg required with `required: true`
-      description: "The version to use", // help description
     }),
   };
+
+  static description = "Download required assets for running casper node.";
 
   async run(): Promise<void> {
     const { args } = await this.parse(Download);
@@ -46,18 +47,21 @@ export default class Download extends Command {
       fs.mkdirSync(configDir, { recursive: true });
     }
 
-    const binaryPath = path.resolve(binDir, "casper-node");
+    const binaryPath = path.resolve(binDir);
+    const tarballPath = `${binaryPath}/bin.tar.gz`;
 
-    if (!fs.existsSync(binaryPath)) {
-      await download(
-        nodeUrl.replace("{GH_BRANCH}", version),
-        binaryPath,
-        console.error
-      );
-    }
+    console.log(`Downloading Casper Node from ${nodeUrl.replace("{GH_BRANCH}", version)}`);
 
-    // https://ss64.com/bash/chmod.html
-    fs.chmodSync(binaryPath, "751");
+    await download(nodeUrl.replace("{GH_BRANCH}", version), tarballPath, console.error);
+
+    console.log("Extracting...");
+    execSync(`tar -xzf ${tarballPath} -C ${binaryPath}`);
+
+    console.log("Setting execution permissions...");
+    execSync(`chmod -R 751 ${binaryPath}`).toString('utf8');
+
+    // Cleanup
+    fs.unlinkSync(tarballPath);
 
     const specPath = path.resolve(configDir, "chainspec.toml.in");
     const configPath = path.resolve(configDir, "config.toml");

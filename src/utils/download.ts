@@ -1,16 +1,15 @@
+import { ux } from "@oclif/core";
 import * as fs from "node:fs";
 import fetch from "node-fetch";
-import { ux } from "@oclif/core";
 
 export default async function download(
   url: string,
   filename: string,
-  callback: (...args: any[]) => void
+  callback: (...args: unknown[]) => void
 ): Promise<void> {
   const progressBar = ux.progress();
   const file = fs.createWriteStream(filename);
   let receivedBytes = 0;
-
   const response = await fetch(url);
 
   if (!response.ok) {
