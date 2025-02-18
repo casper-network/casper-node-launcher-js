@@ -52,6 +52,7 @@ export default class Download extends Command {
     const tarballPath = `${binaryPath}/bin.tar.gz`;
 
     if (!fs.existsSync(binaryPath)) {
+      fs.mkdirSync(binaryPath, { recursive: true });
       console.log(`Downloading Casper Node from ${nodeUrl.replace("{GH_BRANCH}", version)}`);
 
       await download(nodeUrl.replace("{GH_BRANCH}", version), tarballPath, console.error);
