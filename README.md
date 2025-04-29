@@ -6,7 +6,7 @@ The npm library makes easy to run casper node for test purpose.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/casper-node-launcher-js.svg)](https://npmjs.org/package/casper-node-launcher-js)
-[![License](https://img.shields.io/npm/l/casper-node-launcher-js.svg)](https://github.com/casper-network/casper-node-launcher/blob/main/package.json)
+[![License](https://img.shields.io/npm/l/casper-node-launcher-js.svg)](https://opensource.org/license/mit)
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)
 
